@@ -1,0 +1,72 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.scene {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  max-width: calc(5 * 56px + 4 * 12px);
+  justify-content: center;
+}
+
+.plus {
+  font-size: 2.6rem;
+  font-weight: 800;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.choice {
+  min-width: 72px;
+  min-height: 64px;
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  font-size: 2rem;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.wrong {
+  animation: shake var(--dur-fast) ease;
+  background: #f3f4f6;
+  color: var(--c-muted);
+  border-color: var(--c-slot);
+}
+
+.right {
+  background: #e3f8eb;
+  border-color: var(--c-success);
+  color: var(--c-success);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}

@@ -24,10 +24,10 @@ export function NumberTile({ id, value, selected, hidden, disabled, onSelect }: 
       className={`${styles.tile} ${selected ? styles.selected : ''} ${isDragging || hidden ? styles.hidden : ''}`}
       onClick={onSelect}
       disabled={disabled}
-      aria-label={`Tile ${value}`}
-      aria-pressed={selected}
       {...listeners}
       {...attributes}
+      aria-label={`Tile ${value}`}
+      aria-pressed={selected}
     >
       {value}
     </button>

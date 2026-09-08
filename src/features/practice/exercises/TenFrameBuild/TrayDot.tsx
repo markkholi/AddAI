@@ -23,10 +23,10 @@ export function TrayDot({ id, selected, hidden, disabled, onSelect }: TrayDotPro
       className={`${styles.dot} ${selected ? styles.selected : ''} ${isDragging || hidden ? styles.hidden : ''}`}
       onClick={onSelect}
       disabled={disabled}
-      aria-label="Loose dot"
-      aria-pressed={selected}
       {...listeners}
       {...attributes}
+      aria-label="Loose dot"
+      aria-pressed={selected}
     />
   );
 }

@@ -3,16 +3,16 @@ import {
   DragOverlay,
   KeyboardSensor,
   PointerSensor,
-  closestCenter,
   useSensor,
   useSensors,
   type DragEndEvent,
 } from '@dnd-kit/core';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BigButton } from '../../../../components/BigButton/BigButton';
-import { TenFrame, type CellState } from '../../../../components/TenFrame/TenFrame';
+import { TenFrame } from '../../../../components/TenFrame/TenFrame';
 import { checkAnswer } from '../../../../lib/grading';
 import type { ExerciseProps, TenFrameBuildExercise } from '../../../../types';
+import { cellsFor, parseCellId, preferPointerCell, tenFrameAnnouncements } from './tenFrameDnD';
 import { TrayDot } from './TrayDot';
 import styles from './TenFrameBuild.module.css';
 
@@ -54,11 +54,11 @@ export function TenFrameBuild({
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={preferPointerCell}
       onDragStart={() => setDragging(true)}
       onDragCancel={() => setDragging(false)}
       onDragEnd={handleDragEnd}
-      accessibility={{ announcements: dragAnnouncements }}
+      accessibility={{ announcements: tenFrameAnnouncements }}
     >
       <div className={styles.wrap}>
         <div className={styles.frames}>
@@ -157,40 +157,3 @@ export function TenFrameBuild({
   }
 }
 
-function cellsFor(frame: 0 | 1, prefilled: number, placed: number[]): CellState[] {
-  return Array.from({ length: 10 }, (_, index) => {
-    const cell = frame * 10 + index;
-    if (cell < prefilled) {
-      return 'prefilled';
-    }
-    if (placed.includes(cell)) {
-      return 'placed';
-    }
-    return 'empty';
-  });
-}
-
-function parseCellId(id: string, exerciseId: string): number | null {
-  const match = new RegExp(`^${exerciseId}-(\\d+)-cell-(\\d+)$`).exec(id);
-  if (!match) {
-    return null;
-  }
-  const frame = Number(match[1]);
-  const cell = Number(match[2]);
-  return frame * 10 + cell;
-}
-
-const dragAnnouncements = {
-  onDragStart() {
-    return 'Dot picked up';
-  },
-  onDragOver({ over }: { over: { id: string | number } | null }) {
-    return over ? 'over a box' : 'off the frame';
-  },
-  onDragEnd({ over }: { over: { id: string | number } | null }) {
-    return over ? 'dropped in a box' : 'returned to the tray';
-  },
-  onDragCancel() {
-    return 'Move cancelled';
-  },
-};

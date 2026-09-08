@@ -41,6 +41,7 @@
 
 .tile {
   cursor: grab;
+  touch-action: none;
 }
 
 .selected {

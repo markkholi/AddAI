@@ -54,12 +54,18 @@ export function PracticeScreen() {
 
   const dots = Array.from({ length: 5 }, (_, index) => dotState(state, index));
   const mood =
-    state.phase === 'correct' ? 'cheer' : state.phase === 'wrong' ? 'oops' : 'think';
+    state.phase === 'correct'
+      ? 'cheer'
+      : state.phase === 'wrong'
+        ? 'oops'
+        : state.attemptsForCurrent > 0
+          ? 'think'
+          : 'idle';
   const feedback =
     state.phase === 'correct'
       ? { variant: 'success' as const, message: 'Nice work!' }
       : state.phase === 'wrong' || state.attemptsForCurrent > 0
-        ? { variant: 'warn' as const, message: `Not yet — try again! ${exercise.hint}` }
+        ? { variant: 'warn' as const, message: warnMessage(exercise.hint, state.attemptsForCurrent) }
         : { variant: 'idle' as const, message: '' };
 
   return (
@@ -89,14 +95,18 @@ export function PracticeScreen() {
   );
 }
 
+function warnMessage(hint: string, attempts: number): string {
+  if (attempts > 1) {
+    return `Not yet — try again! ${hint} Keep going — try ${attempts}.`;
+  }
+  return `Not yet — try again! ${hint}`;
+}
+
 function dotState(
-  state: { index: number; results: { attempts: number }[]; phase: string },
+  state: { index: number; results: { attempts: number }[] },
   index: number,
 ): DotState {
   if (index < state.results.length) {
-    return state.results[index]?.attempts === 1 ? 'first-try' : 'retried';
-  }
-  if (index === state.index && state.phase === 'correct') {
     return state.results[index]?.attempts === 1 ? 'first-try' : 'retried';
   }
   return 'pending';

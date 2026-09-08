@@ -35,10 +35,10 @@ function blip(frequency: number, duration: number): void {
   const gain = audio.createGain();
   oscillator.type = 'sine';
   oscillator.frequency.value = frequency;
-  gain.gain.value = 0.07;
   oscillator.connect(gain);
   gain.connect(audio.destination);
   const now = audio.currentTime;
+  gain.gain.setValueAtTime(0.07, now);
   gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
   oscillator.start(now);
   oscillator.stop(now + duration);

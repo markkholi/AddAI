@@ -32,6 +32,8 @@ Sound starts **off**. Use the header toggle if you want blips.
 
 Progress lives in `localStorage` key `addai.progress.v1`.
 
+Phase 4 review fixes (P0 + P1) are listed in [`docs/FIXES_AFTER_REVIEW.md`](FIXES_AFTER_REVIEW.md).
+
 ## Small deviations
 
 - `tsconfig.app.json` exists so `tsc -b` works (Vite 5 template). Not a stack change.

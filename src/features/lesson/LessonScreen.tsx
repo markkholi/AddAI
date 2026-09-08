@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { BigButton } from '../../components/BigButton/BigButton';
 import { Card } from '../../components/Card/Card';
@@ -12,6 +12,10 @@ export function LessonScreen() {
   const lesson = getLesson(lessonId);
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    document.getElementById('page-heading')?.focus();
+  }, [step]);
 
   if (!lesson) {
     return <Navigate to="/" replace />;

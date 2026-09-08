@@ -9,6 +9,9 @@ interface TenFrameProps {
   glowEmpty?: boolean;
   highlight?: 'success' | 'none';
   interactive?: boolean;
+  acceptEmpty?: boolean;
+  dimmed?: boolean;
+  label?: string;
   onEmptyCellClick?: (index: number) => void;
   onPlacedCellClick?: (index: number) => void;
 }
@@ -19,19 +22,25 @@ export function TenFrame({
   glowEmpty = false,
   highlight = 'none',
   interactive = false,
+  acceptEmpty = true,
+  dimmed = false,
+  label = 'Ten frame',
   onEmptyCellClick,
   onPlacedCellClick,
 }: TenFrameProps) {
   return (
     <div
-      className={`${styles.frame} ${highlight === 'success' ? styles.success : ''}`}
+      className={`${styles.frame} ${highlight === 'success' ? styles.success : ''} ${dimmed ? styles.dimmed : ''}`}
       role="group"
-      aria-label="Ten frame"
+      aria-label={label}
     >
       {cells.map((state, index) => {
         const glow = glowEmpty && state === 'empty';
         const className = cellClass(state, glow, false);
         if (!interactive) {
+          return <span key={`${frameId}-${index}`} className={className} />;
+        }
+        if (state === 'empty' && !acceptEmpty) {
           return <span key={`${frameId}-${index}`} className={className} />;
         }
         if (state === 'empty') {

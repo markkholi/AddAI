@@ -42,13 +42,13 @@ export function NumberSentenceDrop({
       accessibility={{ announcements: dragAnnouncements }}
     >
       <div className={styles.wrap}>
-        <div className={styles.sentence} aria-label="Number sentence">
+        <div className={styles.sentence} aria-label={describeSentence(exercise.template, placed)}>
           {renderPart(0)}
-          <span className={styles.op} aria-hidden="true">
+          <span className={styles.op} role="img" aria-label="plus">
             +
           </span>
           {renderPart(1)}
-          <span className={styles.op} aria-hidden="true">
+          <span className={styles.op} role="img" aria-label="equals">
             =
           </span>
           {renderPart(2)}
@@ -104,15 +104,15 @@ export function NumberSentenceDrop({
     if (locked) {
       return;
     }
-    if (placed !== null) {
-      setPlaced(null);
+    if (selected !== null) {
+      setPlaced(selected);
       setSelected(null);
       setWarn(false);
       return;
     }
-    if (selected !== null) {
-      setPlaced(selected);
-      setSelected(null);
+    if (placed !== null) {
+      setPlaced(null);
+      setWarn(false);
     }
   }
 
@@ -146,6 +146,15 @@ export function NumberSentenceDrop({
     }
     onAnswer(correct);
   }
+}
+
+function describeSentence(
+  template: [number | null, number | null, number | null],
+  placed: number | null,
+): string {
+  const word = (value: number | null) =>
+    value === null ? (placed === null ? 'blank' : String(placed)) : String(value);
+  return `${word(template[0])} plus ${word(template[1])} equals ${word(template[2])}`;
 }
 
 const dragAnnouncements = {

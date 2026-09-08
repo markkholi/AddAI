@@ -39,6 +39,7 @@ export function TenFrameBuild({
   const usedDots = placed.length;
   const showSecond = exercise.answer > 10;
   const filledCount = prefilled + placed.length;
+  const frame1Filled = prefilled + placed.filter((cell) => cell < 10).length >= 10;
 
   useEffect(() => {
     if (locked || submitted.current) {
@@ -61,6 +62,19 @@ export function TenFrameBuild({
       accessibility={{ announcements: tenFrameAnnouncements }}
     >
       <div className={styles.wrap}>
+        {solved ? (
+          <p className={styles.equation}>
+            <span>{exercise.addends[0]}</span>
+            <span className={styles.op} role="img" aria-label="plus">
+              +
+            </span>
+            <span>{exercise.addends[1]}</span>
+            <span className={styles.op} role="img" aria-label="equals">
+              =
+            </span>
+            <span>{exercise.answer}</span>
+          </p>
+        ) : null}
         <div className={styles.frames}>
           <TenFrame
             frameId={`${exercise.id}-0`}
@@ -76,11 +90,21 @@ export function TenFrameBuild({
               cells={cellsFor(1, prefilled, placed)}
               highlight={solved ? 'success' : 'none'}
               interactive={!locked}
+              acceptEmpty={frame1Filled}
+              dimmed={!frame1Filled}
+              label={
+                frame1Filled
+                  ? 'Second ten frame'
+                  : 'Second ten frame. Fill the first frame first.'
+              }
               onEmptyCellClick={(index) => placeAt(10 + index)}
               onPlacedCellClick={(index) => removeAt(10 + index)}
             />
           ) : null}
         </div>
+        {showSecond && !frame1Filled && !solved ? (
+          <p className={styles.coach}>Fill this frame first. Then the next one!</p>
+        ) : null}
         <div className={styles.tray} role="group" aria-label="Dots to add">
           {trayIds.map((id, index) => {
             const isUsed = index < usedDots;
@@ -110,6 +134,9 @@ export function TenFrameBuild({
 
   function placeAt(cell: number, fromDrag = false) {
     if (locked || placed.includes(cell) || cell < prefilled) {
+      return;
+    }
+    if (cell >= 10 && !frame1Filled) {
       return;
     }
     if (placed.length >= traySize) {

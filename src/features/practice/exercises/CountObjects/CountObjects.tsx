@@ -31,7 +31,7 @@ export function CountObjects({
           locked={locked}
           onToggle={toggle}
         />
-        <span className={styles.plus} aria-hidden="true">
+        <span className={styles.plus} role="img" aria-label="plus">
           +
         </span>
         <Cluster

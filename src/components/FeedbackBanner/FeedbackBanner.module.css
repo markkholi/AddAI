@@ -27,7 +27,8 @@
 
 .warn p {
   background: #fff3dc;
-  color: var(--c-warn);
+  color: var(--c-warn-ink);
+  border: 2px solid var(--c-warn);
 }
 
 .idle p {

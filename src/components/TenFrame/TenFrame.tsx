@@ -33,6 +33,7 @@ export function TenFrame({
       className={`${styles.frame} ${highlight === 'success' ? styles.success : ''} ${dimmed ? styles.dimmed : ''}`}
       role="group"
       aria-label={label}
+      data-locked={dimmed ? 'true' : 'false'}
     >
       {cells.map((state, index) => {
         const glow = glowEmpty && state === 'empty';
@@ -50,6 +51,7 @@ export function TenFrame({
               frameId={frameId}
               index={index}
               className={cellClass(state, glow, false)}
+              showOver={!dimmed}
               onClick={() => onEmptyCellClick?.(index)}
             />
           );
@@ -87,11 +89,13 @@ function DroppableCell({
   frameId,
   index,
   className,
+  showOver,
   onClick,
 }: {
   frameId: string;
   index: number;
   className: string;
+  showOver: boolean;
   onClick: () => void;
 }) {
   const { setNodeRef, isOver } = useDroppable({
@@ -102,7 +106,7 @@ function DroppableCell({
     <button
       ref={setNodeRef}
       type="button"
-      className={`${className} ${isOver ? styles.over : ''}`}
+      className={`${className} ${showOver && isOver ? styles.over : ''}`}
       onClick={onClick}
       aria-label={`Empty box ${index + 1}`}
     />

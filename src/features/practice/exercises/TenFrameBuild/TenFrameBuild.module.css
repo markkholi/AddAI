@@ -18,6 +18,11 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--r-lg);
+  background: #e3f8eb;
+  color: var(--c-success);
   font-size: 2rem;
   font-weight: 800;
 }
@@ -28,7 +33,10 @@
 
 .coach {
   margin: 0;
-  color: var(--c-muted);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  background: #fff3dc;
+  color: var(--c-warn-ink);
   text-align: center;
 }
 

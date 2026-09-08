@@ -66,7 +66,10 @@ button.cell {
 }
 
 .dimmed {
-  opacity: 0.5;
+  opacity: 0.38;
+  filter: grayscale(0.4);
+  border-style: dashed;
+  border-color: var(--c-slot);
 }
 
 @media (max-width: 400px) {

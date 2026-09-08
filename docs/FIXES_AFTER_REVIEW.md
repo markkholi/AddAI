@@ -7,7 +7,7 @@ Implemented the P0s and the clear P1s from `docs/REVIEW_GEMINI.md`. No stack or 
 1. **Ten-frame 360px overflow.** `TenFrame.module.css` now uses `--cell-size` (64px by default, 56px below 400px) for both the grid and the cell min size, so a frame fits in the 328px content width of a 360px phone.
 2. **Warning banner contrast.** Hint text is `--c-warn-ink` (`#78350f`) on `#fff3dc` (~7.2:1), with an amber border. Colour is no longer the only signal.
 3. **Math operators for screen readers.** `+` and `=` in `CountObjects` and `NumberSentenceDrop` no longer have `aria-hidden`. They use `role="img"` plus `aria-label="plus"` / `"equals"`. The sentence container also has a spoken label (`"5 plus blank equals 9"`).
-4. **Sequential Make-a-Ten.** Frame 2 empty cells are not droppable or tappable until Frame 1 has 10 dots. `placeAt` rejects cells ≥ 10 until then. The second frame is dimmed and labelled “Fill the first frame first,” with a short coach line.
+4. **Sequential Make-a-Ten.** Frame 2 stays dimmed and labelled “Fill the first frame first” until Frame 1 has 10 dots. Drops and taps on Frame 2 are rejected until then (`placeAt` blocks cells ≥ 10). Frame 2 cells stay in the dnd-kit hit list so a drop over the dimmed frame snaps back instead of `closestCenter` stealing the dot into Frame 1.
 
 ## Fixed — P1
 

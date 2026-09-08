@@ -18,6 +18,20 @@ export const preferPointerCell: CollisionDetection = (args) => {
   return closestCenter(args);
 };
 
+export function isFrame1Filled(prefilled: number, placed: number[]): boolean {
+  return prefilled + placed.filter((cell) => cell < 10).length >= 10;
+}
+
+export function canPlaceOnCell(cell: number, prefilled: number, placed: number[]): boolean {
+  if (placed.includes(cell) || cell < prefilled) {
+    return false;
+  }
+  if (cell >= 10 && !isFrame1Filled(prefilled, placed)) {
+    return false;
+  }
+  return true;
+}
+
 export function cellsFor(frame: 0 | 1, prefilled: number, placed: number[]): CellState[] {
   return Array.from({ length: 10 }, (_, index) => {
     const cell = frame * 10 + index;

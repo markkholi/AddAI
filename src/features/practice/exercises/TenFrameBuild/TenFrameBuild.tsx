@@ -12,7 +12,14 @@ import { BigButton } from '../../../../components/BigButton/BigButton';
 import { TenFrame } from '../../../../components/TenFrame/TenFrame';
 import { checkAnswer } from '../../../../lib/grading';
 import type { ExerciseProps, TenFrameBuildExercise } from '../../../../types';
-import { cellsFor, parseCellId, preferPointerCell, tenFrameAnnouncements } from './tenFrameDnD';
+import {
+  canPlaceOnCell,
+  cellsFor,
+  isFrame1Filled,
+  parseCellId,
+  preferPointerCell,
+  tenFrameAnnouncements,
+} from './tenFrameDnD';
 import { TrayDot } from './TrayDot';
 import styles from './TenFrameBuild.module.css';
 
@@ -39,7 +46,7 @@ export function TenFrameBuild({
   const usedDots = placed.length;
   const showSecond = exercise.answer > 10;
   const filledCount = prefilled + placed.length;
-  const frame1Filled = prefilled + placed.filter((cell) => cell < 10).length >= 10;
+  const frame1Filled = isFrame1Filled(prefilled, placed);
 
   useEffect(() => {
     if (locked || submitted.current) {
@@ -90,7 +97,6 @@ export function TenFrameBuild({
               cells={cellsFor(1, prefilled, placed)}
               highlight={solved ? 'success' : 'none'}
               interactive={!locked}
-              acceptEmpty={frame1Filled}
               dimmed={!frame1Filled}
               label={
                 frame1Filled
@@ -133,10 +139,10 @@ export function TenFrameBuild({
   );
 
   function placeAt(cell: number, fromDrag = false) {
-    if (locked || placed.includes(cell) || cell < prefilled) {
-      return;
-    }
-    if (cell >= 10 && !frame1Filled) {
+    if (locked || !canPlaceOnCell(cell, prefilled, placed)) {
+      if (cell >= 10 && !frame1Filled) {
+        setSelected(null);
+      }
       return;
     }
     if (placed.length >= traySize) {

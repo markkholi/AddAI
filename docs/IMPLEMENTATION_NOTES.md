@@ -38,4 +38,6 @@ Progress lives in `localStorage` key `addai.progress.v1`.
 - `messageForStars` takes an optional first-try count so the two different 1-star
   messages in the MVP spec can both be used.
 - Session results are passed to the results screen via router location state, with
-  a `sessionId` so React StrictMode cannot record the same run twice.
+  a `sessionId` so React StrictMode cannot double-record a run.
+- Ten-frame drop targeting prefers the cell under the pointer (`pointerWithin`),
+  then overlap, then closest-center, so dots land in the box you aim at.

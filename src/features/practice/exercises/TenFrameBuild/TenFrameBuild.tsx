@@ -82,20 +82,23 @@ export function TenFrameBuild({
           ) : null}
         </div>
         <div className={styles.tray} role="group" aria-label="Dots to add">
-          {trayIds.map((id, index) => (
-            <TrayDot
-              key={id}
-              id={id}
-              selected={selected === id}
-              hidden={index < usedDots}
-              disabled={locked}
-              onSelect={() => {
-                if (!locked) {
-                  setSelected((current) => (current === id ? null : id));
-                }
-              }}
-            />
-          ))}
+          {trayIds.map((id, index) => {
+            const isUsed = index < usedDots;
+            return (
+              <TrayDot
+                key={id}
+                id={id}
+                selected={selected === id}
+                hidden={isUsed}
+                disabled={locked || isUsed}
+                onSelect={() => {
+                  if (!locked && !isUsed) {
+                    setSelected((current) => (current === id ? null : id));
+                  }
+                }}
+              />
+            );
+          })}
         </div>
         <BigButton variant="secondary" disabled={locked} onClick={handleDone}>
           I'm done

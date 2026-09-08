@@ -22,10 +22,14 @@ export function ResultsScreen() {
       return;
     }
     const key = `addai.session.${payload.sessionId}`;
-    if (sessionStorage.getItem(key)) {
-      return;
+    try {
+      if (sessionStorage.getItem(key)) {
+        return;
+      }
+      sessionStorage.setItem(key, '1');
+    } catch {
+      // Ignore sessionStorage failure in restricted/private environments
     }
-    sessionStorage.setItem(key, '1');
     recordResult(lesson.id, starsFor(payload.results));
   }, [lesson, payload, recordResult]);
 

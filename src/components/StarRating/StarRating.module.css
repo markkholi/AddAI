@@ -1,0 +1,56 @@
+.row {
+  display: inline-flex;
+  gap: var(--space-2);
+  line-height: 1;
+}
+
+.sm {
+  font-size: 22px;
+}
+
+.md {
+  font-size: 28px;
+}
+
+.lg {
+  font-size: 48px;
+}
+
+.star {
+  display: inline-block;
+}
+
+.filled {
+  color: var(--c-accent);
+  text-shadow: 0 2px 0 rgba(180, 110, 0, 0.25);
+}
+
+.empty {
+  color: #e4e7eb;
+}
+
+.animate .filled {
+  animation: pop var(--dur-slow) ease both;
+}
+
+.animate .filled:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.animate .filled:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

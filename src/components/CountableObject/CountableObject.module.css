@@ -1,0 +1,48 @@
+.item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 16px;
+}
+
+button.item {
+  cursor: pointer;
+}
+
+.counted {
+  background: #e3f8eb;
+}
+
+.svg {
+  width: 86%;
+  height: 86%;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-success);
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.number {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: var(--c-primary-dark);
+}

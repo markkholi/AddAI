@@ -1,0 +1,85 @@
+.wrap {
+  width: 96px;
+  height: 96px;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+}
+
+.browLeft,
+.browRight {
+  opacity: 0;
+}
+
+.cheer .mouth {
+  d: path('M42 74c8 16 28 16 36 0');
+}
+
+.cheer .eye {
+  ry: 2;
+  transform-origin: center;
+}
+
+.oops .mouth {
+  d: path('M54 76a6 7 0 1 0 12 0a6 7 0 1 0 -12 0');
+  fill: #1f2933;
+  stroke: none;
+}
+
+.oops .browLeft,
+.oops .browRight {
+  opacity: 1;
+}
+
+.oops .browLeft {
+  transform: rotate(-12deg);
+  transform-origin: 36px 26px;
+}
+
+.oops .browRight {
+  transform: rotate(12deg);
+  transform-origin: 84px 26px;
+}
+
+.think .mouth {
+  d: path('M50 80c8 2 16 -4 22 -2');
+}
+
+.think .browRight {
+  opacity: 1;
+  transform: translateY(-4px) rotate(8deg);
+  transform-origin: 84px 26px;
+}
+
+.cheer {
+  animation: bounce var(--dur-slow) ease;
+}
+
+.oops {
+  animation: wobble var(--dur-slow) ease;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}

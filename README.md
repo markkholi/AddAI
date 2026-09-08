@@ -10,9 +10,8 @@ just gets a friendly nudge and another try.
 
 ## Status
 
-Phase 1 (planning) is complete. **There is no runnable app in this repo yet** — no
-`package.json`, no `src/`. What exists today is the plan that the implementation phase
-will follow:
+Phase 2 (implementation) is complete. **The app is runnable locally.** Phase 1 planning
+docs are still the source of truth for stack and scope:
 
 | Document | What's in it |
 | --- | --- |
@@ -36,7 +35,7 @@ hand a second model a brief precise enough that the second one doesn't have to g
 So the specs are more prescriptive than a normal design doc would be, and the
 implementer is explicitly asked not to substitute a different architecture.
 
-## Running it locally (after Phase 2 lands)
+## Running it locally
 
 The app will be a standard Vite project at the repo root, so the usual commands apply.
 Node 20 or newer.
@@ -52,6 +51,7 @@ Other scripts the implementer is asked to provide:
 npm run build      # type-check + production build into dist/
 npm run preview    # serve the production build locally
 npm run lint       # eslint
+npm run test       # vitest: grading + shuffle
 ```
 
 There is no backend, no database, no API keys, and no sign-in. Progress (stars per
